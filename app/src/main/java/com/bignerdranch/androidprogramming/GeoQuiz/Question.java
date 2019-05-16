@@ -3,6 +3,7 @@ package com.bignerdranch.androidprogramming.GeoQuiz;
 public class Question {
     private int mTextResId;
     private boolean mAnswerTrue;
+    private boolean mAnswered;
 
     public int getTextResId() {
         return mTextResId;
@@ -23,5 +24,13 @@ public class Question {
     public Question(int textResId, boolean answerTrue) {
         mTextResId = textResId;
         mAnswerTrue = answerTrue;
+        mAnswered = false;
+    }
+
+    public void setAnswered(boolean isAnswered) {
+        mAnswered = isAnswered;
+    }
+    public boolean getAnswered() {
+        return mAnswered;
     }
 }
