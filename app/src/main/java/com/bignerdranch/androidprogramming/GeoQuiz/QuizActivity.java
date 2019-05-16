@@ -13,8 +13,8 @@ public class QuizActivity extends AppCompatActivity {
 
     private Button mTrueButton;
     private Button mFalseButton;
-    private ImageButton mPrevButton;
-    private ImageButton mNextButton;
+    private Button mPrevButton;
+    private Button mNextButton;
     private TextView mQuestionTextView;
     private static final String TAG = "QuizActivity";
 
@@ -74,14 +74,14 @@ public class QuizActivity extends AppCompatActivity {
         });
 
 
-        mNextButton = (ImageButton) findViewById(R.id.next_button);
+        mNextButton = (Button) findViewById(R.id.next_button);
         mNextButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 nextQuestion();
             }
         });
 
-        mPrevButton = (ImageButton) findViewById(R.id.prev_button);
+        mPrevButton = (Button) findViewById(R.id.prev_button);
         mPrevButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 prevQuestion();
