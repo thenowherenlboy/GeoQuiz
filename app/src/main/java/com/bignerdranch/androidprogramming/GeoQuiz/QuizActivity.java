@@ -15,9 +15,13 @@ public class QuizActivity extends AppCompatActivity {
     private Button mPrevButton;
     private Button mNextButton;
     private TextView mQuestionTextView;
+    private TextView mScoreTextView;
     private static final String TAG = "QuizActivity";
     private static final String KEY_INDEX = "index";
     private static final String KEY_ANSWERED = "Answered";
+    private int right_answers = 0;
+    private int wrong_answers = 0;
+    private double percentage_grade;
 
     private Question[] mQuestionBank = new Question[] {
             new Question(R.string.question_australia, true),
@@ -93,6 +97,8 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
 
+        mScoreTextView = (TextView) findViewById(R.id.score_view);
+
         mNextButton = (Button) findViewById(R.id.next_button);
         mNextButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -132,9 +138,7 @@ public class QuizActivity extends AppCompatActivity {
     private void updateQuestion() {
         int question = mQuestionBank[mCurrentIndex].getTextResId();
         mQuestionTextView.setText(question);
-
         buttConfig();
-
     }
 
     private void buttConfig() {
@@ -161,12 +165,23 @@ public class QuizActivity extends AppCompatActivity {
 
         if (userPressedTrue == answerIsTrue) {
             messageResId = R.string.correct_toast;
+            right_answers += 1;
         } else {
             messageResId = R.string.incorrect_toast;
+            wrong_answers += 1;
         }
 
         Toast.makeText(QuizActivity.this, messageResId, Toast.LENGTH_SHORT).show();
+        if ((right_answers + wrong_answers) == mQuestionBank.length) {
+            checkFinal();
+        }
+
+    }
+    private void checkFinal() {
+        percentage_grade = ((float) right_answers / (float) mQuestionBank.length) * 100.0;
+        String grade = "Percentage answered correctly: " + String.format("%.2f", percentage_grade);
+        char[] out = grade.toCharArray();
+        mScoreTextView.setText(out, 0, (out.length - 1));
 
     }
 }
-
