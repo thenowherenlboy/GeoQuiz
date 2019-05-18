@@ -1,5 +1,6 @@
 package com.bignerdranch.androidprogramming.GeoQuiz;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,7 +13,8 @@ public class QuizActivity extends AppCompatActivity {
 
     private Button mTrueButton;
     private Button mFalseButton;
-    private Button mPrevButton;
+//    private Button mPrevButton;
+    private Button mCheatButton;
     private Button mNextButton;
     private TextView mQuestionTextView;
     private static final String TAG = "QuizActivity";
@@ -28,6 +30,13 @@ public class QuizActivity extends AppCompatActivity {
     };
 
     private int mCurrentIndex = 0;
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        Log.i(TAG, "onSaveInstanceState");
+        savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
+    }
 
     @Override
     public void onStart() {
@@ -92,12 +101,23 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
 
-        mPrevButton = (Button) findViewById(R.id.prev_button);
-        mPrevButton.setOnClickListener(new View.OnClickListener() {
+        mCheatButton = (Button)findViewById(R.id.cheat_button);
+        mCheatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
-                prevQuestion();
+                // Start CheatActivity
+                boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
+                Intent intent = CheatActivity.newIntent(QuizActivity.this, answerIsTrue);
+                startActivity(intent);
             }
         });
+
+//        mPrevButton = (Button) findViewById(R.id.prev_button);
+//        mPrevButton.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                prevQuestion();
+//            }
+//        });
 
         updateQuestion();
 
@@ -137,13 +157,14 @@ public class QuizActivity extends AppCompatActivity {
         updateQuestion();
     }
 
-    private void prevQuestion() {
+    private void prevQuestion() {  //listener code commented out.
         mCurrentIndex -= 1;
         if (mCurrentIndex < 0) mCurrentIndex = (mQuestionBank.length - 1);
         updateQuestion();
     }
 
     private void updateQuestion() {
+        //Log.d(TAG, "Updating question text.", new Exception());
         int question = mQuestionBank[mCurrentIndex].getTextResId();
         mQuestionTextView.setText(question);
     }
