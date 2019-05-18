@@ -154,6 +154,7 @@ public class QuizActivity extends AppCompatActivity {
             mIsCheater = CheatActivity.wasAnswerShown(data);
         }
     }
+    //comments
 
     private void nextQuestion() {
         mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
