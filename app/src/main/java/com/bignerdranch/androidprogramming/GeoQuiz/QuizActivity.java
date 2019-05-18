@@ -147,7 +147,7 @@ public class QuizActivity extends AppCompatActivity {
             return;
         }
 
-        if (resultCode == REQUEST_CODE_CHEAT) {
+        if (requestCode == REQUEST_CODE_CHEAT) {
             if (data == null) {
                 return;
             }
