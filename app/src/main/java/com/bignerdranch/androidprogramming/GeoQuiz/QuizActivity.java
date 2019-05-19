@@ -2,6 +2,7 @@ package com.bignerdranch.androidprogramming.GeoQuiz;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +18,7 @@ public class QuizActivity extends AppCompatActivity {
 //    private Button mPrevButton;
     private Button mCheatButton;
     private Button mNextButton;
+    private TextView mApiLevel;
     private TextView mQuestionTextView;
     private static final String TAG = "QuizActivity";
     private static final String KEY_INDEX = "index";
@@ -82,6 +84,11 @@ public class QuizActivity extends AppCompatActivity {
         }
 
         mQuestionTextView = (TextView) findViewById(R.id.question_text_view);
+
+        mApiLevel = (TextView) findViewById(R.id.api_level);
+
+        String myCharSeq = "API Level " + Build.VERSION.SDK_INT;
+        mApiLevel.setText(myCharSeq);
 
         mQuestionTextView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
